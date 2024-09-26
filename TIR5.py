@@ -23,7 +23,7 @@ def update():
 	yaw     = trackIR.yaw
 	roll    = trackIR.roll
 
-	UDPSocket.sendto( struct.pack( '<6d', x, y, z, yaw, pitch, roll ), ( targetIP, port ) )
+	UDPSocket.sendto( struct.pack( '<6d', x, y, z, yaw, pitch, roll ), ( targetIP, port ) ) #sequence matters, yaw before pitch. Thanks opentrack
 
   # diagnostics window in freepie, removed from final build for potential performance gains. If unsure if things are working on freepie, uncomment the 6 lines below here
 	# diagnostics.watch(x)
@@ -36,3 +36,12 @@ def update():
 
 if starting:
 	trackIR.update += update
+
+
+
+
+
+# if someone is after making the inverse of this script, reading from opentrack into freepie, you would want to use
+# data, _ = UDPServerSocket.recvfrom(48)
+# unpackedData = struct.unpack('<6d', data[0:48])
+# these would create a tuple with the 6 datapoints required for x y z ry rx rz
