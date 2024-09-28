@@ -5,6 +5,7 @@ localIP = '127.0.0.1'
 targetIP = '127.0.0.1'
 port = 4242
 bufferSize = 1024
+TIRtranslationalConst = 5.12							#track ir translation constant, unclear why the output appears to be multiplied by 5.12, but this corrects it
 
 # socket.shutdown(socket.SHUT_RDWR)                                           #untested expiriment
 # socket.close()                                                              #untested expiriment
@@ -16,9 +17,9 @@ print('UDP socket is up')
 
 
 def update():
-	x       = trackIR.x
-	y       = trackIR.y
-	z       = trackIR.z
+	x       = trackIR.x / TIRtranslationalConst
+	y       = trackIR.y / TIRtranslationalConst
+	z       = trackIR.z / TIRtranslationalConst
 	pitch   = trackIR.pitch
 	yaw     = trackIR.yaw
 	roll    = trackIR.roll
